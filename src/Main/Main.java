@@ -2,6 +2,7 @@
 package Main;
 
 
+import authentication.authentication;
 import custumerDashboard.customerDashboard;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class Main {
         
         String response;
         do{
-            System.out.println("WELCOME TO MY SYSTEM");
+           
             System.out.println("1. Add User");
             System.out.println("2. View User");
             System.out.println("3. Update User");
@@ -54,6 +55,34 @@ public class Main {
             System.out.print("Do you want to continue (yes / no): ");
             response = inp.nextLine();
         }while(response.equals("yes"));
+    }
+    
+    public static void loginDashboard(){
+        
+        authentication au = new authentication();
+        
+        System.out.println("WELCOME TO MY SYSTEM");
+        System.out.println("1. login");
+        System.out.println("2. register");
+        System.out.println("3. exit");
+         
+        System.out.print("Choose an option: ");
+        int option = inp.nextInt();
+        inp.nextLine();
+         
+        switch(option){
+             
+            case 1:
+                 
+                break;
+                
+            case 2:
+                au.register();
+                break;
+         }
+         
+         
+        
     }
     
 

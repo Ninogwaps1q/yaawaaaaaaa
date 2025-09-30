@@ -142,4 +142,35 @@ public class config {
         System.out.println("Error deleting record: " + e.getMessage());
     }
 }
+       public String login(String uname, String pass) {
+        String role = null; // store role if login successful
+        String sql = "SELECT c_role, c_status FROM tbl_costumer WHERE c_email = ? AND c_pass = ?";
+        
+        try (Connection conn = this.connectDB();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, email);
+            pstmt.setString(2, pass);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String status = rs.getString("c_status");
+                    if ("Approve".equalsIgnoreCase(status)) {
+                        role = rs.getString("c_role");
+                        System.out.println("Login successful! Role: " + role);
+                    } else {
+                        System.out.println("Your account is still pending. Please wait for admin approval.");
+                        return null;
+                    }
+                } else {
+                    System.out.println("Invalid username or password.");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Login error: " + e.getMessage());
+        }
+        
+        return role; 
+    }
+
 }
